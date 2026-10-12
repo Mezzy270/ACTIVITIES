@@ -1,1 +1,143 @@
-asdasdsdasdasd
+CREATE DATABASE IF NOT EXISTS swiss_grocery_db
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+
+USE swiss_grocery_db;
+
+DROP TABLE IF EXISTS grocery_items;
+
+CREATE TABLE grocery_items (
+    item_id        INT AUTO_INCREMENT PRIMARY KEY,
+    item_name      VARCHAR(100)  NOT NULL,
+    brand          VARCHAR(50)   NOT NULL,
+    category       VARCHAR(50)   NOT NULL,
+    unit_size      VARCHAR(30)   NOT NULL,
+    price_chf      DECIMAL(6,2)  NOT NULL,
+    stock_quantity INT           NOT NULL DEFAULT 0,
+    expiry_date    DATE          NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO grocery_items
+    (item_name, brand, category, unit_size, price_chf, stock_quantity, expiry_date)
+VALUES
+-- ---------- Chocolate & Confectionery (15) ----------
+('Excellence Dark 70% Cacao', 'Lindt', 'Chocolate & Confectionery', '100 g', 3.20, 120, '2027-03-15'),
+('Lindor Milk Truffles', 'Lindt', 'Chocolate & Confectionery', '200 g', 7.95, 85, '2027-02-20'),
+('Swiss Classic Milk Chocolate', 'Lindt', 'Chocolate & Confectionery', '100 g', 2.50, 140, '2027-04-10'),
+('Excellence Sea Salt', 'Lindt', 'Chocolate & Confectionery', '100 g', 3.20, 95, '2027-05-01'),
+('Toblerone Milk Chocolate', 'Toblerone', 'Chocolate & Confectionery', '100 g', 2.60, 200, '2027-06-30'),
+('Toblerone Dark Chocolate', 'Toblerone', 'Chocolate & Confectionery', '100 g', 2.60, 110, '2027-06-30'),
+('Milk Chocolate Tablet', 'Cailler', 'Chocolate & Confectionery', '100 g', 2.40, 130, '2027-01-25'),
+('Branches Classic', 'Cailler', 'Chocolate & Confectionery', '12 pcs', 5.90, 75, '2027-02-14'),
+('Giandor Milk Chocolate', 'Frey', 'Chocolate & Confectionery', '100 g', 1.95, 150, '2027-03-05'),
+('Suprême Hazelnut', 'Frey', 'Chocolate & Confectionery', '100 g', 2.10, 90, '2027-03-05'),
+('Mini Mix Chocolates', 'Frey', 'Chocolate & Confectionery', '20 pcs', 6.50, 60, '2027-04-18'),
+('Ragusa Classic', 'Camille Bloch', 'Chocolate & Confectionery', '100 g', 2.80, 100, '2027-02-28'),
+('Torino Milk', 'Camille Bloch', 'Chocolate & Confectionery', '100 g', 2.80, 80, '2027-02-28'),
+('FrischSchoggi Milk', 'Läderach', 'Chocolate & Confectionery', '100 g', 4.90, 45, '2026-12-20'),
+('Milk Chocolate with Almonds', 'Villars', 'Chocolate & Confectionery', '100 g', 2.45, 70, '2027-01-10'),
+
+-- ---------- Cheese (12) ----------
+('Le Gruyère AOP', 'Emmi', 'Cheese', '250 g', 7.80, 60, '2026-12-05'),
+('Emmentaler AOP', 'Emmi', 'Cheese', '250 g', 6.90, 65, '2026-12-10'),
+('Raclette Tradition', 'Emmi', 'Cheese', '400 g', 9.50, 50, '2026-11-30'),
+('Vacherin Fribourgeois AOP', 'Emmi', 'Cheese', '250 g', 6.40, 35, '2026-11-18'),
+('Tilsiter', 'Emmi', 'Cheese', '250 g', 5.90, 40, '2026-12-02'),
+('Kaltbach Le Gruyère Cave-Aged', 'Emmi', 'Cheese', '200 g', 8.90, 30, '2027-01-15'),
+('Appenzeller Classic', 'Appenzeller', 'Cheese', '200 g', 5.95, 55, '2026-12-12'),
+('Appenzeller Surchoix', 'Appenzeller', 'Cheese', '200 g', 6.80, 45, '2026-12-28'),
+('Tête de Moine AOP', 'Bellelay', 'Cheese', '200 g', 8.20, 30, '2027-01-05'),
+('Sbrinz AOP', 'Sbrinz', 'Cheese', '150 g', 7.60, 25, '2027-03-01'),
+('Fondue Moitié-Moitié', 'Gerber', 'Cheese', '400 g', 10.90, 70, '2027-02-10'),
+('Fondue Original', 'Gerber', 'Cheese', '400 g', 10.50, 65, '2027-02-10'),
+
+-- ---------- Dairy (10) ----------
+('Caffè Latte Macchiato', 'Emmi', 'Dairy', '230 ml', 1.95, 180, '2026-11-25'),
+('Swiss Premium Yogurt Vanilla', 'Emmi', 'Dairy', '150 g', 0.95, 160, '2026-10-30'),
+('Swiss Premium Yogurt Strawberry', 'Emmi', 'Dairy', '150 g', 0.95, 155, '2026-10-30'),
+('Energy Milk Chocolate', 'Emmi', 'Dairy', '330 ml', 2.40, 110, '2026-12-01'),
+('Butter', 'Floralp', 'Dairy', '250 g', 3.95, 90, '2026-11-20'),
+('Whipping Cream 35%', 'Cremo', 'Dairy', '250 ml', 2.60, 75, '2026-10-28'),
+('UHT Whole Milk', 'Cremo', 'Dairy', '1 L', 1.65, 220, '2027-01-12'),
+('Bio Vollmilch', 'Migros Bio', 'Dairy', '1 L', 1.85, 140, '2026-10-26'),
+('Naturaplan Bio Natural Yogurt', 'Coop Naturaplan', 'Dairy', '180 g', 1.15, 130, '2026-11-02'),
+('Cottage Cheese Natural', 'Hirz', 'Dairy', '200 g', 1.90, 85, '2026-10-29'),
+
+-- ---------- Beverages (14) ----------
+('Rivella Red', 'Rivella', 'Beverages', '1.5 L', 2.60, 150, '2027-04-20'),
+('Rivella Blue', 'Rivella', 'Beverages', '1.5 L', 2.60, 120, '2027-04-20'),
+('Rivella Green Tea', 'Rivella', 'Beverages', '1.5 L', 2.60, 95, '2027-04-20'),
+('Citro Lemon Soda', 'Elmer', 'Beverages', '1.5 L', 2.30, 100, '2027-03-30'),
+('Still Mineral Water', 'Henniez', 'Beverages', '1.5 L', 1.10, 300, '2028-01-01'),
+('Classic Mineral Water', 'Valser', 'Beverages', '1.5 L', 1.15, 280, '2028-01-01'),
+('Mineral Water Medium', 'Aproz', 'Beverages', '1.5 L', 0.85, 320, '2028-01-01'),
+('Mineral Water Classic', 'Eptinger', 'Beverages', '1.5 L', 1.05, 210, '2028-01-01'),
+('Sweet Apple Juice', 'Ramseier', 'Beverages', '1 L', 2.20, 130, '2027-05-15'),
+('Beetroot Juice', 'Biotta', 'Beverages', '500 ml', 4.50, 55, '2027-02-01'),
+('Original Lager', 'Feldschlösschen', 'Beverages', '6 x 33 cl', 6.90, 110, '2027-03-12'),
+('Edelbräu Lager', 'Calanda', 'Beverages', '6 x 33 cl', 6.50, 90, '2027-03-12'),
+('Quöllfrisch Hell', 'Appenzeller Bier', 'Beverages', '6 x 33 cl', 8.40, 70, '2027-02-22'),
+('Cardinal Lager', 'Cardinal', 'Beverages', '6 x 33 cl', 6.60, 85, '2027-03-08'),
+
+-- ---------- Bakery & Biscuits (10) ----------
+('Bretzeli Butter Biscuits', 'Kambly', 'Bakery & Biscuits', '100 g', 3.95, 80, '2027-01-30'),
+('Cats Tongues Milk Chocolate', 'Kambly', 'Bakery & Biscuits', '100 g', 3.50, 65, '2027-01-30'),
+('Choco Petit Beurre', 'Wernli', 'Bakery & Biscuits', '125 g', 2.20, 120, '2027-02-18'),
+('Jura Waffles', 'Wernli', 'Bakery & Biscuits', '250 g', 3.30, 70, '2027-02-18'),
+('Zwieback Rusks', 'Hug', 'Bakery & Biscuits', '250 g', 2.90, 90, '2027-04-02'),
+('Salted Pretzels', 'Roland', 'Bakery & Biscuits', '200 g', 2.40, 100, '2027-03-25'),
+('Ruchbrot Dark Bread', 'Jowa', 'Bakery & Biscuits', '500 g', 2.60, 40, '2026-10-16'),
+('Zopf Braided Bread', 'Jowa', 'Bakery & Biscuits', '500 g', 3.20, 35, '2026-10-15'),
+('Butter Croissants', 'Jowa', 'Bakery & Biscuits', '6 pcs', 3.80, 45, '2026-10-17'),
+('Tessinerbrot', 'Jowa', 'Bakery & Biscuits', '500 g', 2.90, 30, '2026-10-16'),
+
+-- ---------- Snacks (8) ----------
+('Paprika Potato Chips', 'Zweifel', 'Snacks', '175 g', 4.20, 150, '2027-01-20'),
+('Nature Potato Chips', 'Zweifel', 'Snacks', '175 g', 4.20, 140, '2027-01-20'),
+('Salt & Vinegar Chips', 'Zweifel', 'Snacks', '175 g', 4.20, 95, '2027-01-20'),
+('Hot Paprika Chips', 'Zweifel', 'Snacks', '175 g', 4.20, 80, '2027-01-20'),
+('Original Herb Candy', 'Ricola', 'Snacks', '100 g', 2.95, 200, '2028-06-01'),
+('Lemon Mint Herb Candy', 'Ricola', 'Snacks', '100 g', 2.95, 175, '2028-06-01'),
+('Sugar-Free Mountain Herbs', 'Ricola', 'Snacks', '125 g', 3.50, 160, '2028-06-01'),
+('Elderflower Herb Candy', 'Ricola', 'Snacks', '100 g', 2.95, 130, '2028-06-01'),
+
+-- ---------- Pantry (14) ----------
+('Aromat Seasoning', 'Knorr', 'Pantry', '90 g', 3.40, 140, '2028-02-01'),
+('Chicken Bouillon Cubes', 'Maggi', 'Pantry', '12 cubes', 2.80, 160, '2028-03-01'),
+('Würze Liquid Seasoning', 'Maggi', 'Pantry', '250 g', 4.60, 90, '2028-03-01'),
+('Mayonnaise', 'Thomy', 'Pantry', '265 g', 2.95, 110, '2027-05-10'),
+('Mild Mustard', 'Thomy', 'Pantry', '200 g', 2.20, 125, '2027-06-14'),
+('Sunflower Oil', 'Thomy', 'Pantry', '1 L', 4.90, 95, '2027-08-01'),
+('Strawberry Jam', 'Hero', 'Pantry', '350 g', 3.60, 85, '2027-09-15'),
+('Apricot Jam', 'Hero', 'Pantry', '350 g', 3.60, 80, '2027-09-15'),
+('Rösti Original', 'Bischofszell', 'Pantry', '500 g', 3.30, 100, '2027-01-08'),
+('Vegetable Bouillon', 'Hügli', 'Pantry', '250 g', 3.90, 70, '2028-01-01'),
+('Weissmehl White Flour', 'Swissmill', 'Pantry', '1 kg', 1.75, 130, '2027-07-01'),
+('Granulated Sugar', 'Schweizer Zucker', 'Pantry', '1 kg', 1.60, 180, '2029-01-01'),
+('Table Salt', 'Schweizer Salinen', 'Pantry', '1 kg', 0.90, 200, '2030-01-01'),
+('Bio Rapsöl Rapeseed Oil', 'Migros Bio', 'Pantry', '1 L', 5.40, 65, '2027-06-20'),
+
+-- ---------- Breakfast (6) ----------
+('Crunchy Cream Spread', 'Ovomaltine', 'Breakfast', '400 g', 5.20, 90, '2027-04-05'),
+('Malt Drink Powder', 'Ovomaltine', 'Breakfast', '500 g', 7.10, 75, '2027-08-30'),
+('Birchermüesli Original', 'Familia', 'Breakfast', '600 g', 4.60, 85, '2027-03-18'),
+('Swiss Müesli Light', 'Familia', 'Breakfast', '600 g', 4.60, 70, '2027-03-18'),
+('Swiss Müesli No Added Sugar', 'Familia', 'Breakfast', '600 g', 4.80, 60, '2027-03-18'),
+('Swiss Müesli Plus 5 Fruits', 'Familia', 'Breakfast', '600 g', 4.90, 55, '2027-03-18'),
+
+-- ---------- Meat & Deli (10) ----------
+('Cervelat Sausage', 'Bell', 'Meat & Deli', '2 pcs', 3.90, 100, '2026-11-08'),
+('Bündnerfleisch IGP', 'Bell', 'Meat & Deli', '70 g', 7.50, 45, '2026-11-15'),
+('Landjäger Smoked Sausage', 'Bell', 'Meat & Deli', '2 pcs', 3.60, 75, '2026-12-01'),
+('St. Galler Kalbsbratwurst', 'Bell', 'Meat & Deli', '2 pcs', 5.40, 60, '2026-10-24'),
+('Cooked Ham Slices', 'Bell', 'Meat & Deli', '120 g', 4.30, 85, '2026-10-27'),
+('Salami Ticino', 'Rapelli', 'Meat & Deli', '100 g', 4.20, 65, '2026-12-18'),
+('Coppa Slices', 'Rapelli', 'Meat & Deli', '80 g', 5.10, 50, '2026-12-05'),
+('Salametti', 'Rapelli', 'Meat & Deli', '120 g', 3.80, 90, '2026-12-22'),
+('Chicken Breast', 'Optigal', 'Meat & Deli', '300 g', 8.90, 55, '2026-10-20'),
+('Minced Beef', 'Micarna', 'Meat & Deli', '400 g', 9.20, 50, '2026-10-19'),
+
+-- ---------- Fresh / Frozen (3) ----------
+('Free-Range Eggs', 'Coop Naturaplan', 'Fresh Produce', '6 pcs', 3.30, 140, '2026-11-05'),
+('Gala Apples', 'Migros Bio', 'Fresh Produce', '1 kg', 4.20, 95, '2026-10-30'),
+('Vanilla Ice Cream', 'Mövenpick', 'Frozen', '1 L', 6.80, 70, '2027-06-01');
